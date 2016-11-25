@@ -26,7 +26,7 @@ public class RenameFile {
 			System.out.println("pathout  = " + pathout.toString() );
 			   
 				   
-		String filename ="contracts-CRMPART-2_bankingAuditTrailResult_CRMPART-2_60-634390b7-070c-4acc-8b7c-274c6796e6be";
+		String filename ="contracts-CRMPART-2_CRMPART-2_60-634390b7-070c-4acc-8b7c-274c6796e6be";
 		
 		
 		final String a = filename.split("-")[0];

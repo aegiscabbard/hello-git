@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class FindDuplicateObjectInList {
@@ -71,14 +71,22 @@ public class FindDuplicateObjectInList {
         final Map<String, List<String>> myBeanGroupBy = listResultBean.stream().collect(
                 Collectors.groupingBy(MyBean::getCode, Collectors.mapping(MyBean::getNature, Collectors.toList())));
 
-        // Map<String, List<MyBean>> myBeanGroupBy2 =
-        // listResultBean.stream().collect(Collectors.groupingBy(MyBean::getCode,Collectors.mapping(MyBean::getNature,
-        // Collectors.toList())));
+        final List<Collector<MyBean, ?, ?>> collectors = Arrays.asList(
+                Collectors.groupingBy(MyBean::getCode),
+                Collectors.groupingBy(MyBean::getNature));
 
         final Map<String, Map<String, List<MyBean>>> map = listResultBean.stream().collect(
-                Collectors.groupingBy(
-                        MyBean::getCode,
-                        Collectors.toMap(MyBean::getNature, Function.identity().toList())));
+                Collectors.groupingBy(MyBean::getCode, Collectors.groupingBy(MyBean::getNature)));
+
+//        final Map<String, MyBean> myBeanGroupBy2 = listResultBean.stream().collect(
+//                Collectors.groupingBy(MyBean::getCode, collectingAndThen(MyBean::getNature),));
+        // (MyBean::getNature,
+        // Collectors.toList())).groupingBy );
+
+//        final Map<String, Map<String, List<MyBean>>> map = listResultBean.stream().collect(
+//                Collectors.groupingBy(
+//                        MyBean::getCode,
+//                        Collectors.toMap(MyBean::getNature, Function.identity())));
 
 //        final Map<String, Map<String, MyBean>> map = listResultBean.stream().collect(
 //                Collectors.groupingBy(MyBean::getCode, Collectors.toMap(MyBean::getNature, Function.identity())));
